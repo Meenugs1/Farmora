@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Farmora</title>
+  <meta name="description"
+    content="AI-powered smart farming assistant for Indian farmers. Get crop suggestions, market prices, weather alerts, and profit estimates in your language." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- ====== SCREEN 1: LOGIN / LANGUAGE ====== -->
+    <div id="screen-login" class="screen active">
+      <div class="login-bg">
+        <div class="login-blob blob1"></div>
+        <div class="login-blob blob2"></div>
+      </div>
+      <div class="login-container">
+        <div class="app-logo-wrap">
+          <div class="app-logo-icon">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="30" r="30" fill="#2E7D32" />
+              <path d="M18 42C18 42 20 30 30 26C40 22 44 28 44 28" stroke="#A5D6A7" stroke-width="2.5"
+                stroke-linecap="round" />
+              <path d="M30 26C30 26 28 18 22 16" stroke="#A5D6A7" stroke-width="2" stroke-linecap="round" />
+              <path d="M30 26C30 26 36 20 40 20" stroke="#A5D6A7" stroke-width="2" stroke-linecap="round" />
+              <ellipse cx="30" cy="42" rx="12" ry="2" fill="#1B5E20" opacity="0.4" />
+              <path d="M24 36C24 36 26 32 30 31C34 30 36 34 36 36" stroke="#81C784" stroke-width="2"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="app-name" data-i18n="app_name">Farmora</h1>
+            <p class="app-tagline" data-i18n="app_tagline">Smart Farming Assistant</p>
+          </div>
+        </div>
+
+        <!-- Farmer Illustration -->
+        <div class="farmer-illustration">
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Sky gradient background -->
+            <defs>
+              <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#E8F5E9" />
+                <stop offset="100%" style="stop-color:#C8E6C9" />
+              </linearGradient>
+              <linearGradient id="fieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#4CAF50" />
+                <stop offset="100%" style="stop-color:#2E7D32" />
+              </linearGradient>
+            </defs>
+            <rect width="320" height="200" fill="url(#skyGrad)" rx="16" />
+            <!-- Sun -->
+            <circle cx="270" cy="40" r="22" fill="#FFF9C4" opacity="0.8" />
+            <circle cx="270" cy="40" r="16" fill="#FFEB3B" opacity="0.9" />
+            <!-- Clouds -->
+            <ellipse cx="80" cy="35" rx="30" ry="14" fill="white" opacity="0.8" />
+            <ellipse cx="60" cy="38" rx="20" ry="12" fill="white" opacity="0.8" />
+            <ellipse cx="100" cy="38" rx="22" ry="11" fill="white" opacity="0.8" />
+            <!-- Field -->
+            <rect x="0" y="130" width="320" height="70" fill="url(#fieldGrad)" rx="0" />
+            <rect x="0" y="155" width="320" height="45" fill="#2E7D32" />
+            <!-- Crop rows -->
+            <g fill="#1B5E20" opacity="0.5">
+              <rect x="20" y="148" width="4" height="20" />
+              <rect x="35" y="145" width="4" height="23" />
+              <rect x="50" y="150" width="4" height="18" />
+              <rect x="65" y="146" width="4" height="22" />
+              <rect x="200" y="148" width="4" height="20" />
+              <rect x="215" y="145" width="4" height="23" />
+              <rect x="230" y="150" width="4" height="18" />
+              <rect x="245" y="147" width="4" height="21" />
+              <rect x="260" y="149" width="4" height="19" />
+            </g>
+            <!-- Crop tops -->
+            <g fill="#66BB6A">
+              <ellipse cx="22" cy="146" rx="7" ry="5" />
+              <ellipse cx="37" cy="143" rx="7" ry="5" />
+              <ellipse cx="52" cy="147" rx="7" ry="5" />
+              <ellipse cx="67" cy="144" rx="7" ry="5" />
+              <ellipse cx="202" cy="146" rx="7" ry="5" />
+              <ellipse cx="217" cy="143" rx="7" ry="5" />
+              <ellipse cx="232" cy="148" rx="7" ry="5" />
+              <ellipse cx="247" cy="145" rx="7" ry="5" />
+              <ellipse cx="262" cy="147" rx="7" ry="5" />
+            </g>
+            <!-- Farmer body -->
+            <g transform="translate(130, 70)">
+              <!-- Legs -->
+              <rect x="18" y="60" width="10" height="35" rx="5" fill="#5D4037" />
+              <rect x="32" y="60" width="10" height="35" rx="5" fill="#5D4037" />
+              <!-- Body (kurta) -->
+              <rect x="12" y="30" width="36" height="35" rx="8" fill="#FFFFFF" />
+              <!-- Arms -->
+              <rect x="-2" y="32" width="14" height="8" rx="4" fill="#FFFFFF" />
+              <rect x="48" y="32" width="14" height="8" rx="4" fill="#FFFFFF" />
+              <!-- Hands -->
+              <circle cx="-2" cy="36" r="6" fill="#FFCC80" />
+              <circle cx="62" cy="36" r="6" fill="#FFCC80" />
+              <!-- Head -->
+              <circle cx="30" cy="18" r="18" fill="#FFCC80" />
+              <!-- Hat -->
+              <ellipse cx="30" cy="4" rx="26" ry="6" fill="#F57F17" />
+              <rect x="10" y="0" width="40" height="10" rx="5" fill="#FF8F00" />
+              <!-- Eyes -->
+              <circle cx="24" cy="18" r="3" fill="#4E342E" />
+              <circle cx="36" cy="18" r="3" fill="#4E342E" />
+              <!-- Smile -->
+              <path d="M22 26 Q30 32 38 26" stroke="#4E342E" stroke-width="1.5" fill="none" stroke-linecap="round" />
+            </g>
+            <!-- Mobile phone in hand -->
+            <rect x="108" y="100" width="22" height="36" rx="4" fill="#1A237E" opacity="0.9" />
+            <rect x="110" y="103" width="18" height="28" rx="2" fill="#42A5F5" opacity="0.8" />
+            <circle cx="119" cy="134" r="1.5" fill="#90CAF9" />
+            <!-- Speech bubble -->
+            <rect x="170" y="72" width="115" height="42" rx="10" fill="white" opacity="0.95" />
+            <polygon points="170,95 155,100 170,105" fill="white" opacity="0.95" />
+            <text x="183" y="90" font-family="Inter" font-size="9" fill="#2E7D32" font-weight="600">AI Farming
+              Guide</text>
+            <text x="183" y="105" font-family="Inter" font-size="8" fill="#555">आज क्या बोएं? 🌾</text>
+          </svg>
+        </div>
+
+        <!-- Step 1: Language & Phone -->
+        <div id="login-step-1" class="login-step active">
+          <!-- Language Selection -->
+          <div class="section-label" data-i18n="choose_lang">Choose your language / भाषा चुनें</div>
+          <div class="lang-grid" style="margin-top: 8px;">
+            <button class="lang-btn active" data-lang="en" onclick="selectLanguage('en', this)">
+              <span class="lang-flag">🇮🇳</span>
+              <span class="lang-name">English</span>
+            </button>
+            <button class="lang-btn" data-lang="hi" onclick="selectLanguage('hi', this)">
+              <span class="lang-flag">🇮🇳</span>
+              <span class="lang-name">हिन्दी</span>
+            </button>
+            <button class="lang-btn" data-lang="te" onclick="selectLanguage('te', this)">
+              <span class="lang-flag">🇮🇳</span>
+              <span class="lang-name">తెలుగు</span>
+            </button>
+            <button class="lang-btn" data-lang="kn" onclick="selectLanguage('kn', this)">
+              <span class="lang-flag">🇮🇳</span>
+              <span class="lang-name">ಕನ್ನಡ</span>
+            </button>
+            <button class="lang-btn" data-lang="ml" onclick="selectLanguage('ml', this)">
+              <span class="lang-flag">🇮🇳</span>
+              <span class="lang-name">മലയാളം</span>
+            </button>
+          </div>
+
+          <!-- Auth Tabs -->
+          <div class="auth-tabs" style="display:flex; margin-top:20px; border-bottom:2px solid #E0E0E0;">
+            <div class="auth-tab active" id="tab-login" onclick="switchAuth('login')" data-i18n="sign_in"
+              style="flex:1; text-align:center; padding:10px; cursor:pointer; font-weight:bold; border-bottom:2px solid var(--primary-color); color:var(--primary-color); user-select:none;">
+              Sign In</div>
+            <div class="auth-tab" id="tab-signup" onclick="switchAuth('signup')" data-i18n="sign_up"
+              style="flex:1; text-align:center; padding:10px; cursor:pointer; font-weight:bold; color:var(--text-muted); border-bottom:2px solid transparent; user-select:none;">
+              Sign Up</div>
+          </div>
+
+          <!-- Login Form -->
+          <div id="auth-login-form" style="margin-top:20px;">
+            <div class="input-group">
+              <span class="input-prefix">🇮🇳 +91</span>
+              <input type="tel" id="login-phone" data-i18n="phone_placeholder" placeholder="Mobile Number"
+                maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+            </div>
+            <div class="input-group" style="margin-top: 14px;">
+              <span class="input-prefix">🔒</span>
+              <input type="password" id="login-pass" data-i18n="enter_password" placeholder="Password" />
+            </div>
+            <button class="btn-primary btn-full" id="btn-login-submit" style="margin-top: 18px;"
+              onclick="handleLogin()">
+              <span data-i18n="login_btn">Login →</span>
+              <div class="btn-ripple"></div>
+            </button>
+          </div>
+
+          <!-- Sign Up Form (hidden initially) -->
+          <div id="auth-signup-form" style="margin-top:20px; display:none;">
+            <div class="input-group">
+              <span class="input-prefix" style="padding-left:14px; padding-right:8px;">👤</span>
+              <input type="text" id="signup-name" data-i18n="full_name" placeholder="Full Name" />
+            </div>
+            <div class="input-group" style="margin-top: 14px;">
+              <span class="input-prefix">🇮🇳 +91</span>
+              <input type="tel" id="signup-phone" data-i18n="phone_placeholder" placeholder="Mobile Number"
+                maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+            </div>
+            <div class="input-group" style="margin-top: 14px;">
+              <span class="input-prefix" style="padding-left:14px; padding-right:8px;">🔑</span>
+              <input type="password" id="signup-pass" data-i18n="create_password" placeholder="Create Password" />
+            </div>
+            <button class="btn-primary btn-full" id="btn-signup-submit" style="margin-top: 18px;"
+              onclick="handleSignup()">
+              <span data-i18n="continue">Continue →</span>
+              <div class="btn-ripple"></div>
+            </button>
+          </div>
+
+          <p class="login-note" style="margin-top: 14px;" data-i18n="secure_note">🔒 Your data is secure and private</p>
+        </div>
+
+        <!-- Step 2: Farm Details -->
+        <div id="login-step-2" class="login-step hidden">
+          <div class="section-label" data-i18n="setup_title">Tell us about your farm</div>
+
+          <div class="input-group" style="margin-top: 14px;">
+            <input type="text" id="setup-location" data-i18n="location_placeholder"
+              placeholder="Location (e.g., Pune)" />
+            <button class="gps-btn" style="border:none; margin-right:4px;">📡 GPS</button>
+          </div>
+
+          <div class="input-group" style="margin-top: 14px;">
+            <input type="number" id="setup-land" data-i18n="land_placeholder" placeholder="Land Size (Acres)" />
+          </div>
+
+          <div class="input-card" style="margin-top: 14px; padding: 14px; box-shadow: none;">
+            <label class="field-label" style="text-align: left;"><span data-i18n="soil_ph">⚗️ Soil pH (Optional)</span>:
+              <span id="setup-ph-val">6.5</span></label>
+            <div class="slider-wrap" style="margin-top: 8px;">
+              <span class="slider-min">4.0</span>
+              <input type="range" class="ph-slider" min="4" max="9" step="0.1" value="6.5"
+                oninput="document.getElementById('setup-ph-val').textContent = this.value" />
+              <span class="slider-max">9.0</span>
+            </div>
+            <div class="ph-bar" style="margin-top: 10px;">
+              <div class="ph-zone ph-acid">Acidic</div>
+              <div class="ph-zone ph-neutral active">Neutral ✓</div>
+              <div class="ph-zone ph-alk">Alkaline</div>
+            </div>
+          </div>
+
+          <button class="btn-primary btn-full" id="btn-complete-setup" style="margin-top: 24px;">
+            <span data-i18n="complete_setup">Complete Setup →</span>
+            <div class="btn-ripple"></div>
+          </button>
+
+          <button class="btn-outline btn-full" style="margin-top: 10px; width: 100%; border:none;"
+            onclick="showLoginStep(1)">
+            ← Back
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 2: DASHBOARD ====== -->
+    <div id="screen-dashboard" class="screen">
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <div class="avatar" style="cursor: pointer;" onclick="navigateTo('screen-profile')">🧑‍🌾</div>
+          <div>
+            <p class="greeting" id="greeting-text">Good Evening, Farmer!</p>
+            <p class="location-tag" data-i18n="location_pune">📍 Pune, Maharashtra</p>
+          </div>
+        </div>
+        <button class="notif-btn" onclick="showAlert('You have 2 new alerts!')">
+          <span class="notif-icon">🔔</span>
+          <span class="notif-badge">2</span>
+        </button>
+      </div>
+
+      <!-- Weather Alert Banner -->
+      <div class="alert-banner alert-warning">
+        <span class="alert-icon">⛈️</span>
+        <div class="alert-content">
+          <strong data-i18n="rain_alert_title">Rain Alert Tomorrow</strong>
+          <p data-i18n="rain_alert_desc">Skip irrigation — 35mm rain expected</p>
+        </div>
+        <button class="alert-close" onclick="this.parentElement.style.display='none'">✕</button>
+      </div>
+
+      <div class="screen-scroll">
+        <!-- Quick Stats Row -->
+        <div class="quick-stats">
+          <div class="stat-chip stat-green">
+            <span>🌡️</span> 28°C
+          </div>
+          <div class="stat-chip stat-blue">
+            <span>💧</span> 72% Humid
+          </div>
+          <div class="stat-chip stat-orange">
+            <span>🌬️</span> 12 km/h
+          </div>
+        </div>
+
+        <!-- Section: Best Crop Card -->
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="ai_rec">🌾 AI Recommendation</h2>
+          <span class="section-badge badge-new">LIVE</span>
+        </div>
+        <div class="hero-card crop-hero">
+          <div class="crop-hero-left">
+            <div class="crop-hero-icon">🫘</div>
+            <div class="crop-hero-text">
+              <h3 data-i18n="soybean">Soybean</h3>
+              <p data-i18n="soybean_rec">Best crop for this season</p>
+              <div class="crop-tags">
+                <span class="tag tag-green">High Demand</span>
+                <span class="tag tag-blue">Kharif</span>
+              </div>
+            </div>
+          </div>
+          <div class="crop-hero-right">
+            <div class="profit-circle profit-green">
+              <span class="profit-pct">+28%</span>
+              <span class="profit-label" data-i18n="profit">Profit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dashboard Cards Grid -->
+        <div class="cards-grid">
+          <div class="dash-card card-weather" onclick="navigateTo('screen-calendar')">
+            <div class="dash-card-icon">🌦️</div>
+            <div class="dash-card-label" data-i18n="card_weather">Weather</div>
+            <div class="dash-card-value">Rain Tomorrow</div>
+            <div class="dash-card-sub">Skip irrigation</div>
+          </div>
+          <div class="dash-card card-market" onclick="navigateTo('screen-market')">
+            <div class="dash-card-icon">📊</div>
+            <div class="dash-card-label" data-i18n="card_market">Market</div>
+            <div class="dash-card-value">₹4,520/q</div>
+            <div class="dash-card-sub">Soybean today</div>
+          </div>
+          <div class="dash-card card-profit" onclick="navigateTo('screen-profit')">
+            <div class="dash-card-icon">💰</div>
+            <div class="dash-card-label" data-i18n="card_profit">Est. Profit</div>
+            <div class="dash-card-value">₹42,000</div>
+            <div class="dash-card-sub">Per acre</div>
+          </div>
+          <div class="dash-card card-season">
+            <div class="dash-card-icon">🌱</div>
+            <div class="dash-card-label" data-i18n="card_season">Season</div>
+            <div class="dash-card-value">Kharif</div>
+            <div class="dash-card-sub">Ends Oct 2026</div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="quick_actions">⚡ Quick Actions</h2>
+        </div>
+        <div class="quick-actions">
+          <button class="quick-action-btn" onclick="navigateTo('screen-crops')">
+            <div class="qa-icon">🌾</div>
+            <span data-i18n="qa_crop">Crop Advice</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigateTo('screen-pest')">
+            <div class="qa-icon">🐛</div>
+            <span data-i18n="qa_pest">Pest Check</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigateTo('screen-land')">
+            <div class="qa-icon">🗺️</div>
+            <span data-i18n="qa_land">Land Plan</span>
+          </button>
+          <button class="quick-action-btn" onclick="navigateTo('screen-calendar')">
+            <div class="qa-icon">📅</div>
+            <span data-i18n="qa_cal">Calendar</span>
+          </button>
+        </div>
+
+        <!-- AI Tips -->
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="smart_tips">💡 Smart Tips</h2>
+        </div>
+        <div class="tips-list">
+          <div class="tip-item">
+            <div class="tip-icon">🌿</div>
+            <div class="tip-text">
+              <strong>Apply urea fertilizer</strong> in the next 3 days before the rain for best absorption.
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon">📈</div>
+            <div class="tip-text">
+              <strong>Soybean prices rising</strong> — consider selling at Pune APMC in next 2 weeks.
+            </div>
+          </div>
+          <div class="tip-item">
+            <div class="tip-icon">🪲</div>
+            <div class="tip-text">
+              <strong>Aphid alert</strong> in nearby farms. Check your crops for early signs.
+            </div>
+          </div>
+        </div>
+
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 3: FARMING HUB ====== -->
+    <div id="screen-farming" class="screen">
+      <div class="screen-header">
+        <h2 data-i18n="hub_title">🌾 Farming Hub</h2>
+        <div></div>
+      </div>
+      <div class="screen-scroll">
+        <!-- Decision Support Banner -->
+        <div class="alert-banner alert-warning"
+          style="background: linear-gradient(90deg, #E8F5E9, #C8E6C9); border-bottom: 2px solid #4CAF50;">
+          <span class="alert-icon">🧠</span>
+          <div class="alert-content">
+            <strong style="color: #2E7D32;" data-i18n="ai_decision_title">AI Decision Support</strong>
+            <p data-i18n="ai_decision_desc">Based on your 5-acre land and current season, a staggered combination of
+              Soybean (2 ac), Onion (1.5 ac), and Maize (1 ac) will minimize risk.</p>
+          </div>
+        </div>
+
+        <div class="section-header" style="margin-top: 24px;">
+          <h2 class="section-title">Cultivation Planning</h2>
+        </div>
+
+        <div class="dash-card" style="margin-bottom: 12px; display:flex; align-items:center; gap: 14px;"
+          onclick="navigateTo('screen-crops')">
+          <div class="dash-card-icon" style="margin:0;">🌾</div>
+          <div style="flex: 1;">
+            <h3 style="font-size: 16px; font-weight:700; color: var(--text-primary);" data-i18n="crop_advisory">Crop
+              Advisory</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top:2px;" data-i18n="crop_advisory_sub">Discover
+              suitable crops</p>
+          </div>
+          <div style="color: var(--green-700); font-weight: bold;">➔</div>
+        </div>
+
+        <div class="dash-card" style="margin-bottom: 12px; display:flex; align-items:center; gap: 14px;"
+          onclick="navigateTo('screen-land')">
+          <div class="dash-card-icon" style="margin:0;">🗺️</div>
+          <div style="flex: 1;">
+            <h3 style="font-size: 16px; font-weight:700; color: var(--text-primary);" data-i18n="land_planning">Land
+              Planning</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top:2px;" data-i18n="divide_land">Divide land &
+              reduce risk</p>
+          </div>
+          <div style="color: var(--green-700); font-weight: bold;">➔</div>
+        </div>
+
+        <div class="dash-card" style="margin-bottom: 12px; display:flex; align-items:center; gap: 14px;"
+          onclick="navigateTo('screen-calendar')">
+          <div class="dash-card-icon" style="margin:0;">📅</div>
+          <div style="flex: 1;">
+            <h3 style="font-size: 16px; font-weight:700; color: var(--text-primary);" data-i18n="cal_title">Farming
+              Calendar</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-top:2px;" data-i18n="track_stages">Track stages
+              & weather</p>
+          </div>
+          <div style="color: var(--green-700); font-weight: bold;">➔</div>
+        </div>
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 3A: CROP SUGGESTION ====== -->
+    <div id="screen-crops" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <h2>🌾 Crop Suggestion</h2>
+        <div></div>
+      </div>
+      <div class="screen-scroll">
+        <div class="input-card">
+          <h3 class="input-card-title">Tell us about your farm</h3>
+
+          <label class="field-label" data-i18n="location_label">📍 Location</label>
+          <div class="location-input-wrap">
+            <input type="text" class="field-input" data-i18n="location_placeholder" placeholder="e.g. Pune, Maharashtra"
+              value="Pune, Maharashtra" />
+            <button class="gps-btn" data-i18n="gps_btn">📡 GPS</button>
+          </div>
+
+          <label class="field-label">🧪 Soil Type</label>
+          <div class="soil-chips">
+            <button class="chip-btn active" onclick="selectChip(this, '.soil-chips')">Black Soil</button>
+            <button class="chip-btn" onclick="selectChip(this, '.soil-chips')">Red Soil</button>
+            <button class="chip-btn" onclick="selectChip(this, '.soil-chips')">Sandy</button>
+            <button class="chip-btn" onclick="selectChip(this, '.soil-chips')">Loamy</button>
+          </div>
+
+          <label class="field-label">⚗️ Soil pH: <span id="ph-val">6.5</span></label>
+          <div class="slider-wrap">
+            <span class="slider-min">4.0</span>
+            <input type="range" class="ph-slider" min="4" max="9" step="0.1" value="6.5"
+              oninput="document.getElementById('ph-val').textContent = this.value" />
+            <span class="slider-max">9.0</span>
+          </div>
+          <div class="ph-bar">
+            <div class="ph-zone ph-acid">Acidic</div>
+            <div class="ph-zone ph-neutral active">Neutral ✓</div>
+            <div class="ph-zone ph-alk">Alkaline</div>
+          </div>
+
+          <label class="field-label">🌧️ Water Availability</label>
+          <div class="water-chips">
+            <button class="chip-btn active" onclick="selectChip(this, '.water-chips')">Rain-fed</button>
+            <button class="chip-btn" onclick="selectChip(this, '.water-chips')">Canal</button>
+            <button class="chip-btn" onclick="selectChip(this, '.water-chips')">Borewell</button>
+            <button class="chip-btn" onclick="selectChip(this, '.water-chips')">Drip</button>
+          </div>
+
+          <button class="btn-primary btn-full" onclick="showCropResults()" data-i18n="find_crops">
+            🔍 Find Best Crops
+          </button>
+        </div>
+
+        <!-- Crop Results -->
+        <div id="crop-results" class="crop-results hidden">
+          <div class="section-header">
+            <h2 class="section-title">Best Crops for You</h2>
+            <span class="section-badge badge-ai">AI Pick</span>
+          </div>
+
+          <div class="crop-result-card crop-rank-1">
+            <div class="rank-badge">🥇 #1</div>
+            <div class="crop-result-body">
+              <div class="crop-result-icon">🫘</div>
+              <div class="crop-result-info">
+                <h3>Soybean</h3>
+                <p>Grows well in black cotton soil</p>
+                <div class="suitability-bar">
+                  <div class="suit-fill" style="width:92%"></div>
+                </div>
+                <span class="suit-label">92% Suitable</span>
+              </div>
+              <div class="crop-result-badge badge-high">HIGH</div>
+            </div>
+            <div class="crop-extras">
+              <span class="extra-tag">⏱ 90 days</span>
+              <span class="extra-tag">💰 ₹4,520/q</span>
+              <span class="extra-tag">💧 Medium Water</span>
+            </div>
+          </div>
+
+          <div class="crop-result-card crop-rank-2">
+            <div class="rank-badge">🥈 #2</div>
+            <div class="crop-result-body">
+              <div class="crop-result-icon">🌽</div>
+              <div class="crop-result-info">
+                <h3>Maize</h3>
+                <p>Good for this pH range</p>
+                <div class="suitability-bar">
+                  <div class="suit-fill" style="width:78%"></div>
+                </div>
+                <span class="suit-label">78% Suitable</span>
+              </div>
+              <div class="crop-result-badge badge-med">MED</div>
+            </div>
+            <div class="crop-extras">
+              <span class="extra-tag">⏱ 75 days</span>
+              <span class="extra-tag">💰 ₹1,850/q</span>
+              <span class="extra-tag">💧 Low Water</span>
+            </div>
+          </div>
+
+          <div class="crop-result-card crop-rank-3">
+            <div class="rank-badge">🥉 #3</div>
+            <div class="crop-result-body">
+              <div class="crop-result-icon">🧅</div>
+              <div class="crop-result-info">
+                <h3>Onion</h3>
+                <p>High market demand</p>
+                <div class="suitability-bar">
+                  <div class="suit-fill" style="width:65%"></div>
+                </div>
+                <span class="suit-label">65% Suitable</span>
+              </div>
+              <div class="crop-result-badge badge-med">MED</div>
+            </div>
+            <div class="crop-extras">
+              <span class="extra-tag">⏱ 120 days</span>
+              <span class="extra-tag">💰 ₹2,200/q</span>
+              <span class="extra-tag">💧 Medium Water</span>
+            </div>
+          </div>
+        </div>
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 4: MARKET INTELLIGENCE ====== -->
+    <div id="screen-market" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <h2 data-i18n="market_title">📊 Market Prices</h2>
+        <div></div>
+      </div>
+      <div class="screen-scroll">
+        <!-- Search & Voice Bar -->
+        <div class="input-group" style="margin-bottom: 16px; border-radius: var(--radius-full); padding: 4px;">
+          <input type="text" id="market-search-input" data-i18n="search_placeholder" placeholder="Search any crop..."
+            style="padding: 10px 16px;" />
+          <button id="market-search-btn" onclick="handleMarketSearch()"
+            style="background: none; border: none; font-size: 18px; padding: 0 12px; cursor: pointer;">🔍</button>
+          <div style="width: 1px; height: 24px; background: var(--border);"></div>
+          <button
+            style="background: none; border: none; font-size: 18px; padding: 0 14px; cursor: pointer; color: var(--green-700);"
+            onclick="toggleVoice()">🎤</button>
+        </div>
+
+        <!-- Commodity Selector -->
+        <div class="commodity-scroll">
+          <button class="comm-chip active" data-comm="Soybean" onclick="selectComm(this)">🫘 Soybean</button>
+          <button class="comm-chip" data-comm="Maize" onclick="selectComm(this)">🌽 Maize</button>
+          <button class="comm-chip" data-comm="Onion" onclick="selectComm(this)">🧅 Onion</button>
+          <button class="comm-chip" data-comm="Wheat" onclick="selectComm(this)">🌾 Wheat</button>
+          <button class="comm-chip" data-comm="Rice" onclick="selectComm(this)">🍚 Rice</button>
+          <button class="comm-chip" data-comm="Cotton" onclick="selectComm(this)">🥜 Cotton</button>
+        </div>
+
+        <!-- Price Trend -->
+        <div class="price-trend-card">
+          <div class="price-trend-header">
+            <div>
+              <h3 id="market-crop-name">Soybean</h3>
+              <p>Live market prices — today</p>
+            </div>
+            <div class="price-change positive" id="market-price-change">+₹120 ↑</div>
+          </div>
+          <div class="mini-chart">
+            <svg viewBox="0 0 280 80" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2E7D32" stop-opacity="0.3" />
+                  <stop offset="100%" stop-color="#2E7D32" stop-opacity="0" />
+                </linearGradient>
+              </defs>
+              <path id="chart-line" d="M0,60 L40,55 L80,45 L120,50 L160,35 L200,30 L240,20 L280,15" stroke="#2E7D32"
+                stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+              <path id="chart-fill" d="M0,60 L40,55 L80,45 L120,50 L160,35 L200,30 L240,20 L280,15 L280,80 L0,80"
+                fill="url(#chartGrad)" />
+              <circle id="chart-dot" cx="280" cy="15" r="4" fill="#2E7D32" />
+            </svg>
+            <div class="chart-labels">
+              <span data-i18n="mon">Mon</span><span data-i18n="tue">Tue</span><span data-i18n="wed">Wed</span><span
+                data-i18n="thu">Thu</span><span data-i18n="fri">Fri</span><span data-i18n="sat">Sat</span><span
+                data-i18n="today">Today</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI Decision Support -->
+        <div class="alert-banner"
+          style="background: linear-gradient(90deg, #E8F5E9, #C8E6C9); border-bottom: 2px solid #4CAF50; margin-bottom: 16px; border-radius: var(--radius-md);">
+          <span class="alert-icon">🧠</span>
+          <div class="alert-content">
+            <strong style="color: #2E7D32;" id="market-ai-title" data-i18n="ai_decision_sell">AI Decision: SELL
+              NOW</strong>
+            <p id="market-ai-advice" data-i18n="ai_market_advice">Prices are ₹570 above MSP and at a 30-day high. Best
+              to sell at Pune APMC.</p>
+          </div>
+        </div>
+
+        <!-- Market Comparison -->
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="nearby_markets">Nearby Markets</h2>
+          <span class="section-badge badge-new" data-i18n="badge_live">LIVE</span>
+        </div>
+
+        <div class="market-card market-best">
+          <div class="market-best-badge">⭐ BEST PRICE</div>
+          <div class="market-card-body">
+            <div class="market-icon">🏪</div>
+            <div class="market-info">
+              <h3 data-i18n="pune_apmc">Pune APMC</h3>
+              <p data-i18n="pune_market_info">24 km away · Open till 6 PM</p>
+              <div class="market-price" id="mkt-price-1">₹4,520 <span data-i18n="per_q">/quintal</span></div>
+            </div>
+            <div class="market-glow-bar"></div>
+          </div>
+          <div class="price-diff positive-diff" id="mkt-diff-1">₹+280 more than nearest</div>
+        </div>
+
+        <div class="market-card">
+          <div class="market-card-body">
+            <div class="market-icon">🏬</div>
+            <div class="market-info">
+              <h3>Hadapsar Mandi</h3>
+              <p>8 km away · Open till 4 PM</p>
+              <div class="market-price" id="mkt-price-2">₹4,240 <span>/quintal</span></div>
+            </div>
+          </div>
+          <div class="price-diff neutral-diff" id="mkt-diff-2">Nearest market</div>
+        </div>
+
+        <div class="market-card">
+          <div class="market-card-body">
+            <div class="market-icon">🏭</div>
+            <div class="market-info">
+              <h3>Nashik Market</h3>
+              <p>98 km away · Open till 5 PM</p>
+              <div class="market-price" id="mkt-price-3">₹4,380 <span>/quintal</span></div>
+            </div>
+          </div>
+          <div class="price-diff positive-diff" id="mkt-diff-3">₹+140 more than nearest</div>
+        </div>
+
+        <!-- MSP Box -->
+        <div class="msp-card">
+          <div class="msp-left">
+            <div class="msp-label">Govt. MSP</div>
+            <div class="msp-price" id="mkt-msp-price">₹3,950/q</div>
+          </div>
+          <div class="msp-right">
+            <div class="msp-advice" id="mkt-msp-advice">💡 Current market price is <strong>₹570 above MSP</strong>. Good
+              time to sell!</div>
+          </div>
+        </div>
+
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 5: PROFIT ESTIMATION ====== -->
+    <div id="screen-profit" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <h2>💰 Profit Estimator</h2>
+        <div></div>
+      </div>
+      <div class="screen-scroll">
+        <div class="input-card">
+          <h3 class="input-card-title" data-i18n="enter_farm_details">Enter Your Farm Details</h3>
+
+          <div class="form-row">
+            <div class="form-col">
+              <label class="field-label">🗺 Land (acres)</label>
+              <input type="number" class="field-input" id="land-acres" value="2" min="0.5" step="0.5"
+                oninput="calcProfit()" />
+            </div>
+            <div class="form-col">
+              <label class="field-label">🌾 Crop</label>
+              <select class="field-input" id="profit-crop" onchange="calcProfit()">
+                <option value="soybean">Soybean</option>
+                <option value="maize">Maize</option>
+                <option value="onion">Onion</option>
+                <option value="wheat">Wheat</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="field-label">📦 Expected Yield (q/acre)</label>
+          <input type="number" class="field-input" id="yield-val" value="12" min="1" step="1" oninput="calcProfit()" />
+
+          <label class="field-label">🏷️ Selling Price (₹/q)</label>
+          <input type="number" class="field-input" id="sell-price" value="4520" min="100" step="10"
+            oninput="calcProfit()" />
+
+          <label class="field-label">💸 Input Cost (₹/acre)</label>
+          <input type="number" class="field-input" id="input-cost" value="18000" min="0" step="500"
+            oninput="calcProfit()" />
+        </div>
+
+        <!-- Profit Result Card -->
+        <div class="profit-result-card" id="profit-result">
+          <div class="profit-result-header" data-i18n="profit_breakdown_title">📊 Profit Breakdown</div>
+          <div class="profit-breakdown">
+            <div class="pb-row">
+              <span data-i18n="total_revenue_label">Total Revenue</span>
+              <span class="pb-val" id="total-revenue">₹1,08,480</span>
+            </div>
+            <div class="pb-row">
+              <span data-i18n="total_input_cost_label">Total Input Cost</span>
+              <span class="pb-val cost" id="total-cost">₹36,000</span>
+            </div>
+            <div class="pb-divider"></div>
+            <div class="pb-row pb-total">
+              <span data-i18n="net_profit_label">Net Profit</span>
+              <span class="pb-val profit-val" id="net-profit">₹72,480</span>
+            </div>
+            <div class="pb-row">
+              <span data-i18n="roi_label">ROI</span>
+              <span class="pb-val roi-val" id="roi-val">201%</span>
+            </div>
+          </div>
+
+          <div class="profit-gauge-wrap">
+            <div class="profit-gauge" id="profit-gauge">
+              <div class="gauge-fill profit-fill" id="gauge-fill" style="width: 75%"></div>
+              <div class="gauge-label" id="gauge-label">Excellent Profit! 🎉</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 6: LAND PLANNING ====== -->
+    <div id="screen-land" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <h2>🗺️ Land Planning</h2>
+        <div></div>
+      </div>
+      <div class="screen-scroll">
+        <div class="input-card">
+          <h3 class="input-card-title" data-i18n="plan_land_title">Plan Your Land</h3>
+          <label class="field-label" data-i18n="total_land_label">📐 Total Land (acres)</label>
+          <input type="number" class="field-input" id="total-land" value="5" min="1" step="0.5" />
+          <button class="btn-primary btn-full" onclick="generateLandPlan()" data-i18n="gen_land_plan">📋 Generate Land
+            Plan</button>
+        </div>
+
+        <div id="land-plan-results" class="hidden">
+          <!-- Visual Plot Division -->
+          <div class="section-header">
+            <h2 class="section-title">🗂 Plot Division</h2>
+          </div>
+          <div class="plot-visual">
+            <div class="plot-segment" style="flex:2; background:linear-gradient(135deg,#1B5E20,#2E7D32);">
+              <span class="plot-crop-icon">🫘</span>
+              <span class="plot-crop-name">Soybean</span>
+              <span class="plot-crop-area">2 acres</span>
+            </div>
+            <div class="plot-segment" style="flex:1.5; background:linear-gradient(135deg,#E65100,#F57C00);">
+              <span class="plot-crop-icon">🧅</span>
+              <span class="plot-crop-name">Onion</span>
+              <span class="plot-crop-area">1.5 acres</span>
+            </div>
+            <div class="plot-segment" style="flex:1; background:linear-gradient(135deg,#1565C0,#1976D2);">
+              <span class="plot-crop-icon">🌽</span>
+              <span class="plot-crop-name">Maize</span>
+              <span class="plot-crop-area">1 acre</span>
+            </div>
+            <div class="plot-segment" style="flex:0.5; background:linear-gradient(135deg,#6A1B9A,#8E24AA);">
+              <span class="plot-crop-icon">🌿</span>
+              <span class="plot-crop-name">Fodder</span>
+              <span class="plot-crop-area">0.5 acre</span>
+            </div>
+          </div>
+
+          <!-- Crop Combination Table -->
+          <div class="plan-table-wrap">
+            <table class="plan-table">
+              <thead>
+                <tr>
+                  <th>Crop</th>
+                  <th>Area</th>
+                  <th>Rev.</th>
+                  <th>Profit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="table-crop">🫘 Soybean</span></td>
+                  <td>2 ac</td>
+                  <td>₹1.08L</td>
+                  <td class="positive">+₹72K</td>
+                </tr>
+                <tr>
+                  <td><span class="table-crop">🧅 Onion</span></td>
+                  <td>1.5 ac</td>
+                  <td>₹79K</td>
+                  <td class="positive">+₹42K</td>
+                </tr>
+                <tr>
+                  <td><span class="table-crop">🌽 Maize</span></td>
+                  <td>1 ac</td>
+                  <td>₹28K</td>
+                  <td class="positive">+₹14K</td>
+                </tr>
+                <tr>
+                  <td><span class="table-crop">🌿 Fodder</span></td>
+                  <td>0.5 ac</td>
+                  <td>₹8K</td>
+                  <td class="positive">+₹4K</td>
+                </tr>
+                <tr class="table-total">
+                  <td>Total</td>
+                  <td>5 ac</td>
+                  <td>₹2.23L</td>
+                  <td class="positive">+₹1.32L</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Timeline -->
+          <div class="section-header">
+            <h2 class="section-title" data-i18n="timeline_title">📅 Planting Timeline</h2>
+          </div>
+          <div class="timeline-wrap">
+            <div class="timeline-item tl-done">
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <strong>June – Soybean Sowing</strong>
+                <p>Rain-fed, 2 acres · Pre-sow fertilizer apply</p>
+              </div>
+              <span class="tl-badge done">Done</span>
+            </div>
+            <div class="timeline-item tl-active">
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <strong>July – Onion Nursery</strong>
+                <p>Start seedling in nursery beds</p>
+              </div>
+              <span class="tl-badge active">Now</span>
+            </div>
+            <div class="timeline-item tl-upcoming">
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <strong>August – Maize Sowing</strong>
+                <p>After first crop established</p>
+              </div>
+              <span class="tl-badge upcoming">Soon</span>
+            </div>
+            <div class="timeline-item tl-upcoming">
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <strong>October – Soybean Harvest</strong>
+                <p>Target: 24 quintals → APMC Pune</p>
+              </div>
+              <span class="tl-badge upcoming">Oct</span>
+            </div>
+            <div class="timeline-item tl-upcoming">
+              <div class="tl-dot"></div>
+              <div class="tl-content">
+                <strong>November – Onion Harvest</strong>
+                <p>Expected yield: 45 quintals</p>
+              </div>
+              <span class="tl-badge upcoming">Nov</span>
+            </div>
+          </div>
+        </div>
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 7: FARMING CALENDAR ====== -->
+    <div id="screen-calendar" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <h2 data-i18n="cal_title">📅 Farming Calendar</h2>
+        <div></div>
+      </div>
+      <div class="screen-scroll">
+        <!-- Alert Banner -->
+        <div class="alert-banner alert-warning">
+          <span class="alert-icon">🌧️</span>
+          <div class="alert-content">
+            <strong>Rain Tomorrow — Skip Irrigation!</strong>
+            <p>35mm rain forecast for April 10</p>
+          </div>
+        </div>
+
+        <!-- Current Phase -->
+        <div class="phase-hero">
+          <div class="phase-icon">🌿</div>
+          <div class="phase-info">
+            <div class="phase-label">Current Phase</div>
+            <div class="phase-name">Vegetative Growth</div>
+            <div class="phase-days">Day 42 of 90</div>
+          </div>
+          <div class="phase-progress-wrap">
+            <div class="phase-progress-ring">
+              <svg viewBox="0 0 60 60">
+                <circle cx="30" cy="30" r="24" fill="none" stroke="#C8E6C9" stroke-width="5" />
+                <circle cx="30" cy="30" r="24" fill="none" stroke="#2E7D32" stroke-width="5" stroke-dasharray="150.8"
+                  stroke-dashoffset="100" stroke-linecap="round" transform="rotate(-90 30 30)" />
+                <text x="30" y="35" text-anchor="middle" font-size="12" font-weight="700" fill="#2E7D32">47%</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Calendar Steps -->
+        <div class="cal-steps">
+          <div class="cal-step step-done">
+            <div class="step-icon step-done-icon">✅</div>
+            <div class="step-content">
+              <div class="step-title">🌱 Sowing</div>
+              <div class="step-desc">June 15 – Seeds planted, urea applied</div>
+            </div>
+          </div>
+          <div class="step-connector done"></div>
+          <div class="cal-step step-done">
+            <div class="step-icon step-done-icon">✅</div>
+            <div class="step-content">
+              <div class="step-title">💧 1st Irrigation</div>
+              <div class="step-desc">June 28 – 40mm applied</div>
+            </div>
+          </div>
+          <div class="step-connector done"></div>
+          <div class="cal-step step-active">
+            <div class="step-icon step-active-icon">⚡</div>
+            <div class="step-content">
+              <div class="step-title">🌿 Fertilizer – Now</div>
+              <div class="step-desc">Apply NPK before rain tomorrow</div>
+              <div class="step-alert">⚠️ Do today!</div>
+            </div>
+          </div>
+          <div class="step-connector"></div>
+          <div class="cal-step step-upcoming">
+            <div class="step-icon step-upcoming-icon">⏳</div>
+            <div class="step-content">
+              <div class="step-title">💧 2nd Irrigation</div>
+              <div class="step-desc">April 12 – Skip if rain occurs</div>
+            </div>
+          </div>
+          <div class="step-connector"></div>
+          <div class="cal-step step-upcoming">
+            <div class="step-icon step-upcoming-icon">⏳</div>
+            <div class="step-content">
+              <div class="step-title">🌾 Harvest</div>
+              <div class="step-desc">October 15 – Expected 24 quintals</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 8: PEST DETECTION ====== -->
+    <div id="screen-pest" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <h2 data-i18n="pest_title">🔬 Pest Detection</h2>
+        <div></div>
+      </div>
+      <div class="screen-scroll">
+        <div class="pest-upload-area" id="pest-upload-area" onclick="triggerPestUpload()">
+          <div class="pest-upload-icon">📷</div>
+          <div class="pest-upload-title" data-i18n="pest_upload_title">Upload or Take Photo</div>
+          <div class="pest-upload-sub" data-i18n="pest_upload_sub">AI will identify pests & diseases instantly</div>
+          <button class="btn-outline" data-i18n="choose_photo">📁 Choose Photo</button>
+          <input type="file" id="pest-file" accept="image/*" style="display:none" onchange="showPestResult()" />
+        </div>
+
+        <!-- Or common issues -->
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="common_issues">🐛 Common Issues</h2>
+        </div>
+        <div class="pest-grid">
+          <button class="pest-preselect" onclick="showPestCard('aphid')">
+            <div class="pest-preselect-icon">🦟</div>
+            <span>Aphid</span>
+          </button>
+          <button class="pest-preselect" onclick="showPestCard('fungal')">
+            <div class="pest-preselect-icon">🍄</div>
+            <span>Fungal</span>
+          </button>
+          <button class="pest-preselect" onclick="showPestCard('stem_borer')">
+            <div class="pest-preselect-icon">🐛</div>
+            <span>Stem Borer</span>
+          </button>
+          <button class="pest-preselect" onclick="showPestCard('leaf_spot')">
+            <div class="pest-preselect-icon">🍃</div>
+            <span>Leaf Spot</span>
+          </button>
+          <button class="pest-preselect" onclick="showPestCard('whitefly')">
+            <div class="pest-preselect-icon">🦋</div>
+            <span>Whitefly</span>
+          </button>
+          <button class="pest-preselect" onclick="showPestCard('wilting')">
+            <div class="pest-preselect-icon">🥀</div>
+            <span>Wilting</span>
+          </button>
+        </div>
+
+        <!-- Pest Result -->
+        <div class="pest-result hidden" id="pest-result">
+          <div class="pest-result-header">
+            <div class="pest-confidence">
+              <span class="pest-conf-val" id="pest-conf">94%</span>
+              <span class="pest-conf-label">AI Confidence</span>
+            </div>
+            <div>
+              <div class="pest-name" id="pest-name">Aphid Infestation</div>
+              <div class="pest-severity severity-high" id="pest-severity">⚠️ High Severity</div>
+            </div>
+          </div>
+          <div class="pest-desc" id="pest-desc">
+            Aphids suck sap from plant tissues, causing curling leaves and stunted growth. Common in humid conditions.
+          </div>
+
+          <!-- Solution Tabs -->
+          <div class="sol-tabs">
+            <button class="sol-tab active" id="tab-organic" onclick="switchPestTab('organic')">🌿 Organic</button>
+            <button class="sol-tab" id="tab-chemical" onclick="switchPestTab('chemical')">🧪 Chemical</button>
+          </div>
+
+          <!-- Organic Solutions -->
+          <div class="solution-steps" id="pest-organic">
+            <div class="solution-title">🌿 Organic Treatment</div>
+            <div id="organic-steps"></div>
+          </div>
+
+          <!-- Chemical Solutions -->
+          <div class="solution-steps hidden" id="pest-chemical">
+            <div class="solution-title">🧪 Chemical Treatment</div>
+            <div id="chemical-steps"></div>
+            <div class="chem-warning">⚠️ Wear protective gear. Follow label dosage. Keep children away.</div>
+          </div>
+        </div>
+
+
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN: CROP HEALTH ====== -->
+    <div id="screen-health" class="screen">
+      <div class="screen-header">
+        <h2 data-i18n="nav_health">🌱 Crop Health</h2>
+        <span class="section-badge badge-new" style="font-size:10px;">LIVE</span>
+      </div>
+      <div class="screen-scroll">
+        <!-- Overall Health Score -->
+        <div class="health-score-card">
+          <div class="health-score-left">
+            <div class="health-score-ring">
+              <svg viewBox="0 0 80 80">
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#C8E6C9" stroke-width="7" />
+                <circle cx="40" cy="40" r="32" fill="none" stroke="#2E7D32" stroke-width="7" stroke-dasharray="201"
+                  stroke-dashoffset="50" stroke-linecap="round" transform="rotate(-90 40 40)" />
+                <text x="40" y="38" text-anchor="middle" font-size="16" font-weight="800" fill="#1B5E20">78</text>
+                <text x="40" y="52" text-anchor="middle" font-size="9" fill="#4E6B4E">/ 100</text>
+              </svg>
+            </div>
+          </div>
+          <div class="health-score-right">
+            <div class="health-score-label">Overall Farm Health</div>
+            <div class="health-score-status good">🟢 Good Condition</div>
+            <div class="health-score-hint">Based on soil, weather & crop data</div>
+            <div class="health-chips">
+              <span class="health-chip chip-green">Soybean ✓</span>
+              <span class="health-chip chip-yellow">Onion ⚠</span>
+              <span class="health-chip chip-green">Maize ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active Alerts -->
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="active_alerts">⚠️ Active Alerts</h2>
+          <span class="section-badge" style="background:#FFF3E0;color:#E65100;">2 Alerts</span>
+        </div>
+        <div class="health-alert-card alert-yellow" onclick="navigateTo('screen-pest'); showPestCard('aphid')">
+          <div class="ha-icon">🦟</div>
+          <div class="ha-body">
+            <div class="ha-title">Aphid Risk Detected</div>
+            <div class="ha-desc">High humidity + warm nights — ideal aphid conditions. Inspect Soybean leaves.</div>
+          </div>
+          <div class="ha-badge badge-warn">Medium</div>
+        </div>
+        <div class="health-alert-card alert-red" onclick="navigateTo('screen-pest'); showPestCard('leaf_spot')">
+          <div class="ha-icon">🍂</div>
+          <div class="ha-body">
+            <div class="ha-title">Yellow Leaf Spot – Onion</div>
+            <div class="ha-desc">2 reports nearby. Check your onion nursery for early signs.</div>
+          </div>
+          <div class="ha-badge badge-high">High</div>
+        </div>
+
+        <!-- Soil Report -->
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="soil_report">🧪 Soil Report</h2>
+        </div>
+        <div class="soil-report-card">
+          <div class="soil-row">
+            <span class="soil-label">Nitrogen (N)</span>
+            <div class="soil-bar-wrap">
+              <div class="soil-bar" style="width:72%; background:#4CAF50;"></div>
+            </div>
+            <span class="soil-val good-val">72%</span>
+          </div>
+          <div class="soil-row">
+            <span class="soil-label">Phosphorus (P)</span>
+            <div class="soil-bar-wrap">
+              <div class="soil-bar" style="width:48%; background:#FF9800;"></div>
+            </div>
+            <span class="soil-val warn-val">48%</span>
+          </div>
+          <div class="soil-row">
+            <span class="soil-label">Potassium (K)</span>
+            <div class="soil-bar-wrap">
+              <div class="soil-bar" style="width:81%; background:#4CAF50;"></div>
+            </div>
+            <span class="soil-val good-val">81%</span>
+          </div>
+          <div class="soil-row">
+            <span class="soil-label">Moisture</span>
+            <div class="soil-bar-wrap">
+              <div class="soil-bar" style="width:65%; background:#2196F3;"></div>
+            </div>
+            <span class="soil-val good-val">65%</span>
+          </div>
+          <div class="soil-advice">💡 Add DAP fertilizer to boost Phosphorus before next irrigation.</div>
+        </div>
+
+        <!-- AI Scan Button -->
+        <div class="section-header">
+          <h2 class="section-title" data-i18n="ai_scan">📷 AI Disease Scan</h2>
+        </div>
+        <div class="ai-scan-area" id="health-scan-area" onclick="triggerHealthScan()">
+          <div class="ai-scan-icon">📸</div>
+          <div class="ai-scan-title">Tap to Scan Crop Leaf</div>
+          <div class="ai-scan-sub">AI will detect disease, pests or deficiencies instantly</div>
+          <button class="btn-outline" style="margin-top:10px;"
+            onclick="event.stopPropagation(); showPestCard('aphid'); navigateTo('screen-pest')">🔬 Open Full
+            Scanner</button>
+        </div>
+
+        <div style="height:100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN: COMMUNITY ====== -->
+    <div id="screen-community" class="screen">
+      <div class="screen-header">
+        <h2 data-i18n="nav_comms">🌐 Community</h2>
+        <button class="notif-btn" style="width:36px;height:36px;" onclick="showAlert('You have 3 new replies!')">💬
+          <span class="notif-badge">3</span></button>
+      </div>
+      <div class="screen-scroll">
+        <!-- Post Creator -->
+        <div class="post-create-card">
+          <div class="post-create-top">
+            <div class="comm-avatar">🧑‍🌾</div>
+            <input type="text" id="post-input" class="post-input" placeholder="Share your farming experience..." />
+          </div>
+          <div class="post-create-actions">
+            <button class="post-action-btn" onclick="selectPostType('photo', this)">📷 Photo</button>
+            <button class="post-action-btn" onclick="selectPostType('tip', this)">💡 Tip</button>
+            <button class="post-action-btn" onclick="selectPostType('question', this)">❓ Question</button>
+            <button class="post-submit-btn" onclick="addCommunityPost()">Post →</button>
+          </div>
+        </div>
+
+        <!-- Feed -->
+        <div class="comm-feed" id="comm-feed">
+
+          <div class="comm-post">
+            <div class="comm-post-header">
+              <div class="comm-post-avatar">👩‍🌾</div>
+              <div class="comm-post-meta">
+                <div class="comm-post-name">Sunita Sharma</div>
+                <div class="comm-post-loc">📍 Nashik • 2 hrs ago</div>
+              </div>
+              <span class="comm-badge badge-tip">💡 Tip</span>
+            </div>
+            <div class="comm-post-body">
+              Spraying neem oil mixed with garlic extract early morning really helped control aphids on my soybean crop
+              this season! Try it 🌿
+            </div>
+            <div class="comm-post-photo"
+              style="background: linear-gradient(135deg,#A5D6A7,#2E7D32); height:140px; border-radius:10px; display:flex;align-items:center;justify-content:center; font-size:48px; margin:10px 0;">
+              🌱</div>
+            <div class="comm-post-actions">
+              <button class="comm-action" onclick="likePost(this)">👍 <span class="like-count">34</span> Likes</button>
+              <button class="comm-action" onclick="showAlert('Comments: Great tip! Thanks.')">💬 12 Comments</button>
+              <button class="comm-action">🔗 Share</button>
+            </div>
+          </div>
+
+          <div class="comm-post">
+            <div class="comm-post-header">
+              <div class="comm-post-avatar">🧑‍🌾</div>
+              <div class="comm-post-meta">
+                <div class="comm-post-name">Raju Patil</div>
+                <div class="comm-post-loc">📍 Solapur • 5 hrs ago</div>
+              </div>
+              <span class="comm-badge badge-question">❓ Question</span>
+            </div>
+            <div class="comm-post-body">
+              Anyone else seeing yellow leaves on their onion crop this week? My plants look worse after yesterday's
+              rain. What should I spray?
+            </div>
+            <div class="comm-post-actions">
+              <button class="comm-action" onclick="likePost(this)">👍 <span class="like-count">18</span> Likes</button>
+              <button class="comm-action" onclick="showAlert('Top Answer: Try Mancozeb 75WP spray.')">💬 27
+                Comments</button>
+              <button class="comm-action">🔗 Share</button>
+            </div>
+          </div>
+
+          <div class="comm-post">
+            <div class="comm-post-header">
+              <div class="comm-post-avatar">🧓</div>
+              <div class="comm-post-meta">
+                <div class="comm-post-name">Govind Jadhav</div>
+                <div class="comm-post-loc">📍 Aurangabad • Yesterday</div>
+              </div>
+              <span class="comm-badge badge-tip">💡 Tip</span>
+            </div>
+            <div class="comm-post-body">
+              Maize yield went from 8 to 14 quintals/acre after switching to drip irrigation. Best investment I made
+              this season! 🌽📈
+            </div>
+            <div class="comm-post-actions">
+              <button class="comm-action" onclick="likePost(this)">👍 <span class="like-count">67</span> Likes</button>
+              <button class="comm-action" onclick="showAlert('Comments: Which drip system did you use?')">💬 41
+                Comments</button>
+              <button class="comm-action">🔗 Share</button>
+            </div>
+          </div>
+
+        </div>
+        <div style="height:100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== SCREEN 9: PROFILE ====== -->
+    <div id="screen-profile" class="screen">
+      <div class="screen-header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <h2 data-i18n="profile_title">👤 My Profile</h2>
+        <div></div>
+      </div>
+      <div class="screen-scroll">
+        <div class="profile-hero">
+          <div class="profile-avatar">🧑‍🌾</div>
+          <div class="profile-name">Ramesh Patil</div>
+          <div class="profile-location">📍 Pune, Maharashtra</div>
+          <div class="profile-stats">
+            <div class="p-stat">
+              <div class="p-stat-val">5</div>
+              <div class="p-stat-label">Acres</div>
+            </div>
+            <div class="p-stat-divider"></div>
+            <div class="p-stat">
+              <div class="p-stat-val">3</div>
+              <div class="p-stat-label">Seasons</div>
+            </div>
+            <div class="p-stat-divider"></div>
+            <div class="p-stat">
+              <div class="p-stat-val">₹2.3L</div>
+              <div class="p-stat-label">Earned</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-section">
+          <div class="profile-item">
+            <span>📱</span>
+            <div class="profile-item-info">
+              <div class="profile-item-label">Mobile</div>
+              <div class="profile-item-val">+91 98765 43210</div>
+            </div>
+            <button class="profile-edit-btn">Edit</button>
+          </div>
+          <div class="profile-item">
+            <span>🌾</span>
+            <div class="profile-item-info">
+              <div class="profile-item-label">Primary Crop</div>
+              <div class="profile-item-val">Soybean</div>
+            </div>
+            <button class="profile-edit-btn">Edit</button>
+          </div>
+          <div class="profile-item">
+            <span>🧪</span>
+            <div class="profile-item-info">
+              <div class="profile-item-label">Soil Type</div>
+              <div class="profile-item-val">Black Cotton Soil</div>
+            </div>
+            <button class="profile-edit-btn">Edit</button>
+          </div>
+          <div class="profile-item">
+            <span>💬</span>
+            <div class="profile-item-info">
+              <div class="profile-item-label">Language</div>
+              <div class="profile-item-val">English</div>
+            </div>
+            <button class="profile-edit-btn">Edit</button>
+          </div>
+        </div>
+
+        <div class="profile-section profile-links">
+          <button class="profile-link-btn">
+            <span>📜</span> Crop History
+          </button>
+          <button class="profile-link-btn">
+            <span>🏆</span> My Achievements
+          </button>
+          <button class="profile-link-btn">
+            <span>📞</span> Contact Support
+          </button>
+          <button class="profile-link-btn logout-btn" onclick="navigateTo('screen-login')">
+            <span data-i18n="logout">🚪 Logout</span>
+          </button>
+        </div>
+
+        <div style="height: 100px;"></div>
+      </div>
+    </div>
+
+    <!-- ====== BOTTOM NAVIGATION ====== -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-item active" onclick="navigateTo('screen-dashboard'); setActiveNav(this)">
+        <div class="nav-icon">🏠</div>
+        <span data-i18n="nav_home">Home</span>
+      </button>
+      <button class="nav-item" onclick="navigateTo('screen-farming'); setActiveNav(this)">
+        <div class="nav-icon">🌾</div>
+        <span data-i18n="nav_farming">Farming</span>
+      </button>
+
+      <!-- Voice Button Space -->
+      <div class="nav-voice-space"></div>
+
+      <button class="nav-item" onclick="navigateTo('screen-market'); setActiveNav(this)">
+        <div class="nav-icon">📊</div>
+        <span data-i18n="nav_market">Market</span>
+      </button>
+      <button class="nav-item" onclick="navigateTo('screen-health'); setActiveNav(this)">
+        <div class="nav-icon">🌱</div>
+        <span data-i18n="nav_health">Health</span>
+      </button>
+      <button class="nav-item" onclick="navigateTo('screen-community'); setActiveNav(this)">
+        <div class="nav-icon">🌐</div>
+        <span data-i18n="nav_community">Comms</span>
+      </button>
+    </nav>
+
+    <!-- ====== FLOATING VOICE BUTTON ====== -->
+    <button class="voice-fab" id="voice-fab" onclick="toggleVoice()">
+      <div class="voice-pulse"></div>
+      <div class="voice-pulse pulse2"></div>
+      <div class="voice-inner">
+        <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+          <path
+            d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08C16.39 17.43 19 14.53 19 11h-2z" />
+        </svg>
+      </div>
+    </button>
+
+    <!-- ====== VOICE ASSISTANT OVERLAY ====== -->
+    <div class="voice-overlay" id="voice-overlay">
+      <div class="voice-overlay-content">
+        <div class="voice-overlay-header">
+          <h3 data-i18n="voice_title">🎤 Voice Assistant</h3>
+          <button class="overlay-close" onclick="toggleVoice()">✕</button>
+        </div>
+
+        <!-- Voice Animation -->
+        <div class="voice-animation-wrap" id="voice-anim-wrap">
+          <div class="voice-anim-rings">
+            <div class="ring r1"></div>
+            <div class="ring r2"></div>
+            <div class="ring r3"></div>
+          </div>
+          <div class="voice-anim-core">
+            <svg viewBox="0 0 24 24" fill="white">
+              <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z" />
+              <path
+                d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08C16.39 17.43 19 14.53 19 11h-2z" />
+            </svg>
+          </div>
+        </div>
+        <div class="voice-status" id="voice-status">Listening...</div>
+
+        <!-- Chat Bubbles -->
+        <div class="chat-area" id="chat-area">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Voice Suggestion Chips -->
+        <div class="voice-chips">
+          <button class="voice-chip" onclick="sendVoiceQuery('Best crop?')"><span data-i18n="qa_crop">Best
+              Crop?</span></button>
+          <button class="voice-chip" onclick="sendVoiceQuery('Market price?')"><span data-i18n="card_market">Market
+              Price?</span></button>
+          <button class="voice-chip" onclick="sendVoiceQuery('Weather today?')"><span data-i18n="card_weather">Weather
+              today?</span></button>
+        </div>
+
+        <!-- Text Input -->
+        <div class="voice-text-input">
+          <input type="text" id="voice-text" data-i18n="voice_placeholder" placeholder="Or type your question..." />
+          <button class="send-btn" onclick="sendVoiceFromInput()">➤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    // Emergency debug to ensure script loaded
+    console.log("Farmora: Core HTML loaded.");
+  </script>
+</body>
+
+</html>
